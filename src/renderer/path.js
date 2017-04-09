@@ -63,7 +63,7 @@ var geom = require('../utils/geom');
 
                     for (j = 0; j <= pointsLen; j++) {
                         point = points[j] || points[0];
-                        screenPoint = Kothic.geom.transformPoint(point, ws, hs);
+                        screenPoint = geom.transformPoint(point, ws, hs);
 
                         if (j === 0) {
                             ctx.moveTo(screenPoint[0], screenPoint[1]);

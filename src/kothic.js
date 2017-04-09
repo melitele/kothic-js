@@ -8,6 +8,9 @@ var CollisionBuffer = require("./utils/collisions");
 var style = require("./style/style");
 var MapCSS = require("./style/mapcss");
 var line = require("./renderer/line");
+var polygon = require("./renderer/polygon");
+var shields = require("./renderer/shields");
+var texticons = require("./renderer/texticons");
 
 function Kothic(options) {
     this.setOptions(options);
@@ -147,7 +150,7 @@ function renderBackground(ctx, width, height, zoom, styles) {
     };
 
     for (var i in style) {
-        Kothic.polygon.fill(ctx, style[i], fillRect);
+        polygon.fill(ctx, style[i], fillRect);
     }
 }
 
@@ -195,7 +198,7 @@ function renderGeometryFeatures(layerIds, layers, ctx, ws, hs, granularity) {
 
         if (queue.polygons) {
             for (j = 0, len = queue.polygons.length; j < len; j++) {
-                Kothic.polygon.render(ctx, queue.polygons[j], queue.polygons[j + 1], ws, hs, granularity);
+                polygon.render(ctx, queue.polygons[j], queue.polygons[j + 1], ws, hs, granularity);
             }
         }
 
@@ -227,7 +230,7 @@ function renderTextAndIcons(layerIds, layers, ctx, ws, hs, collisionBuffer) {
         for (j = featuresLen - 1; j >= 0; j--) {
             style = features[j].style;
             if (style.hasOwnProperty('icon-image') && !style.text) {
-                Kothic.texticons.render(ctx, features[j], collisionBuffer, ws, hs, false, true);
+                texticons.render(ctx, features[j], collisionBuffer, ws, hs, false, true);
             }
         }
 
@@ -235,7 +238,7 @@ function renderTextAndIcons(layerIds, layers, ctx, ws, hs, collisionBuffer) {
         for (j = featuresLen - 1; j >= 0; j--) {
             style = features[j].style;
             if (!style.hasOwnProperty('icon-image') && style.text) {
-                Kothic.texticons.render(ctx, features[j], collisionBuffer, ws, hs, true, false);
+                texticons.render(ctx, features[j], collisionBuffer, ws, hs, true, false);
             }
         }
 
@@ -243,7 +246,7 @@ function renderTextAndIcons(layerIds, layers, ctx, ws, hs, collisionBuffer) {
         for (j = featuresLen - 1; j >= 0; j--) {
             style = features[j].style;
             if (style.hasOwnProperty('icon-image') && style.text) {
-                Kothic.texticons.render(ctx, features[j], collisionBuffer, ws, hs, true, true);
+                texticons.render(ctx, features[j], collisionBuffer, ws, hs, true, true);
             }
         }
 
@@ -251,7 +254,7 @@ function renderTextAndIcons(layerIds, layers, ctx, ws, hs, collisionBuffer) {
         for (j = featuresLen - 1; j >= 0; j--) {
             style = features[j].style;
             if (style['shield-text']) {
-                Kothic.shields.render(ctx, features[j], collisionBuffer, ws, hs);
+                shields.render(ctx, features[j], collisionBuffer, ws, hs);
             }
         }
     }

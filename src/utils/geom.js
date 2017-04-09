@@ -53,7 +53,7 @@ exports.getReprPoint = function (feature) {
 };
 
 // Calculate length of line
-exports.getPolyLength: function (points) {
+exports.getPolyLength = function (points) {
   var length = 0;
 
   for (var i = 1; i < points.length; i++) {
@@ -95,8 +95,8 @@ exports.getAngleAndCoordsAtLength = function (points, dist, width) {
       gotxy = true;
     }
 
-    if (gotxy && len + segLen >= dist + width) {
-      var partLen = dist + width - len;
+    if (gotxy && length + segLen >= dist + width) {
+      var partLen = dist + width - length;
 
       dx = pc[0] + dx * partLen / segLen;
       dy = pc[1] + dy * partLen / segLen;
